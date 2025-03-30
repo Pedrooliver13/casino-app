@@ -1,16 +1,17 @@
 // Packages
 import { RouterProvider } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { Toaster } from 'sonner';
 
 // Components
+import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/themes/theme-provider';
 
 // Contexts
 import { LanguageProvider } from '@/contexts/languageContext';
+import { AuthProvider } from '@/contexts/authContext';
 
 // Routes
-import { router } from '@/routes';
+import { router } from '@/router/routes';
 
 // Styles
 import './global.css';
@@ -22,7 +23,9 @@ export const App = () => {
         <LanguageProvider>
           <Helmet titleTemplate="%s | casino.app" />
 
-          <RouterProvider router={router} />
+          <AuthProvider>
+            <RouterProvider router={router} />
+          </AuthProvider>
 
           <Toaster />
         </LanguageProvider>

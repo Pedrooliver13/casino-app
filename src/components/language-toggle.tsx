@@ -14,8 +14,9 @@ import {
 import { useLanguage } from '@/contexts/languageContext';
 
 const LANGUAGES = [
-  { code: 'en', label: 'English' },
-  { code: 'fr', label: 'Français' },
+  { code: 'pt', label: 'portuguese' },
+  { code: 'en', label: 'english' },
+  { code: 'fr', label: 'french' },
 ];
 
 export function LanguageToggle() {
@@ -39,9 +40,7 @@ export function LanguageToggle() {
             key={language.code}
             onClick={() => changeLanguage(language.code)}
           >
-            {t(
-              `languages.${language.code === 'en' ? 'english' : language.code === 'es' ? 'spanish' : 'french'}`,
-            )}
+            {t(`languages.${language.label}`)}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
