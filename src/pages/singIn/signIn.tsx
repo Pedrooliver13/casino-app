@@ -86,7 +86,7 @@ export const SignIn = (): ReactElement => {
       <Helmet title="Login" />
 
       <FormProvider {...methods}>
-        <div className="container mt-10 flex h-[90vh] w-full max-w-[400px] flex-col items-center justify-center md:m-auto">
+        <div className="container mt-10 flex md:h-[90vh] w-full max-w-[400px] flex-col items-center justify-center md:m-auto">
           <form
             onSubmit={handleSubmit(onSignIn)}
             className="flex flex-col justify-center gap-6"
