@@ -4,7 +4,6 @@ import { useSearchParams } from 'react-router-dom';
 import { useFormContext } from 'react-hook-form';
 
 // Components
-import { LogoIcon } from '@/components/icons/logo-icon';
 import { useTheme } from '@/components/themes/theme-provider';
 
 interface TenantImageProps {
@@ -38,9 +37,7 @@ export const TenantImage = (props: TenantImageProps): ReactElement => {
 
   return (
     <>
-      {!isValid ? (
-        <LogoIcon className="translate-y-4 animate-[fadeIn_0.5s_ease-out_forwards] opacity-0 data-[valid=false]:hidden" />
-      ) : (
+      {isValid && (
         <img
           src={imageURL}
           alt="Logo do casino"
