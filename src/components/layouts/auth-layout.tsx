@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 // Components
 import { ThemeToggle } from '@/components/themes/theme-toggle';
 import { LanguageToggle } from '@/components/language-toggle';
-import { ChangeTenantButton } from '@/components/change-tenant-button';
+import { ChangeTenantButton } from '@/components/shared/change-tenant-button';
 
 export const AuthLayout = (): ReactElement => {
   return (

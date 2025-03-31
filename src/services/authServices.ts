@@ -1,5 +1,5 @@
-// Libs
-import { httpClient } from '@/libs/axios';
+// Services
+import { httpClient } from '@/services/axios';
 
 interface ISignInDTO {
   email: string;

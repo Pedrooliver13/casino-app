@@ -62,7 +62,8 @@ export default tseslint.config(
           Contexts: [{ path: 'contexts' }],
           Hooks: [{ path: 'hooks' }],
           Models: [{ path: 'models' }],
-          Services: [{ path: 'services' }],
+          Configs: [{ path: '@/config' }],
+          Services: [{ path: 'services' }, { path: '@/services/axios' }],
           Styles: [
             { path: 'styles' },
             { path: '.css' },

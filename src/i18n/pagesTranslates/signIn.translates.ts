@@ -14,6 +14,7 @@ export const signInTranslates = {
     privacyPolicy: 'Política de Privacidade',
 
     error: {
+      invalidEmailOrPassword: 'Email ou senha errado.',
       invalidEmail: 'E-mail inválido.',
       requiredField: 'Campo obrigatório.',
       notFoundEmail: 'Email não encontrado.',
@@ -35,6 +36,7 @@ export const signInTranslates = {
     and: 'and',
     privacyPolicy: 'Privacy Policy',
     error: {
+      invalidEmailOrPassword: 'Wrong email or password.',
       invalidEmail: 'Invalid email.',
       requiredField: 'Required field.',
       notFoundEmail: 'Email not found.',
@@ -56,6 +58,7 @@ export const signInTranslates = {
     and: 'et',
     privacyPolicy: 'Politique de confidentialité',
     error: {
+      invalidEmailOrPassword: 'E-mail ou mot de passe incorrect.',
       invalidEmail: 'E-mail invalide.',
       requiredField: 'Champ obligatoire.',
       notFoundEmail: 'Email non trouvé.',
