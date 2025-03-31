@@ -145,6 +145,7 @@ export const SignIn = (): ReactElement => {
                     maxLength={6}
                     label={t('signIn.code')}
                     error={errors.code?.message}
+                    required
                     {...field}
                   >
                     {Array(6)
