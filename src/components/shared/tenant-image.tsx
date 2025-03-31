@@ -30,8 +30,10 @@ export const TenantImage = (props: TenantImageProps): ReactElement => {
   const { watch } = useFormContext();
   const [seachParams] = useSearchParams();
 
+  const currentTheme = theme === 'system' ? 'dark' : theme;
   const tenantValue = seachParams.get('tenant') ?? watch('tenant');
-  const imageURL = `https://casino-service-tenant-images.s3.us-east-1.amazonaws.com/${tenantValue}/logo/logo-${theme}.png`;
+  
+  const imageURL = `https://casino-service-tenant-images.s3.us-east-1.amazonaws.com/${tenantValue}/logo/logo-${currentTheme}.png`;
 
   const isValid = useImageCheck(imageURL);
 
