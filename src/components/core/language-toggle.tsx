@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 // Contexts
-import { useLanguage } from '@/contexts/languageContext';
+import { useLanguage } from '@/contexts/language-context';
 
 const LANGUAGES = [
   { code: 'pt', label: 'portuguese' },

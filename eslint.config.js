@@ -55,7 +55,7 @@ export default tseslint.config(
           ],
           Utils: [{ path: 'utils' }],
           Routes: [{ path: 'router' }, { path: '@/routes' }],
-          i18n: [{ path: 'i18n/' }],
+          i18n: [{ path: 'i18n/' }, { path: '@/i18n/componentsTranslates' }],
           Pages: [{ path: 'pages/' }],
           Reducers: [{ path: 'reducers' }],
           Components: [{ path: 'components' }, { path: '@/components' }],

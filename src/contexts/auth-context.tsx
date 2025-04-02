@@ -1,11 +1,12 @@
-import { storageKeys } from '@/config/storageKeys';
-
 // Packages
 import { createContext, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Services
-import { AuthService } from '@/services/authServices';
+import { AuthService } from '@/services/auth-services';
+
+// Configs
+import { storageKeys } from '@/config/storage-keys';
 
 interface IAuthContextValue {
   signedIn: boolean;
@@ -34,8 +35,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       tenant: string;
       code: string;
     }) => {
-      const { access_token } = await AuthService.signIn(data);
-      localStorage.setItem(storageKeys.accessToken, access_token);
+      const { token } = await AuthService.signIn(data);
+      localStorage.setItem(storageKeys.accessToken, token);
 
       setSignedIn(true);
       navigate('/');

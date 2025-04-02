@@ -15,8 +15,15 @@ export const Dashboard = (): ReactElement => {
   };
 
   return (
-    <Button type="button" variant="default" size="icon" onClick={handleSignOut}>
-      Sair
-    </Button>
+    <div>
+      <Button
+        type="button"
+        variant="default"
+        size="icon"
+        onClick={handleSignOut}
+      >
+        Sair
+      </Button>
+    </div>
   );
 };

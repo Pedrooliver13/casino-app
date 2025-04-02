@@ -3,8 +3,8 @@ import { ReactElement, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useFormContext } from 'react-hook-form';
 
-// Components
-import { useTheme } from '@/components/themes/theme-provider';
+// Hooks
+import { useTheme } from '@/hooks/use-theme';
 
 interface TenantImageProps {
   className?: string;
@@ -32,7 +32,7 @@ export const TenantImage = (props: TenantImageProps): ReactElement => {
 
   const currentTheme = theme === 'system' ? 'dark' : theme;
   const tenantValue = seachParams.get('tenant') ?? watch('tenant');
-  
+
   const imageURL = `https://casino-service-tenant-images.s3.us-east-1.amazonaws.com/${tenantValue}/logo/logo-${currentTheme}.png`;
 
   const isValid = useImageCheck(imageURL);

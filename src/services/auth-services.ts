@@ -9,7 +9,7 @@ interface ISignInDTO {
 }
 
 interface ISignInResponse {
-  access_token: string;
+  token: string;
 }
 
 export class AuthService {

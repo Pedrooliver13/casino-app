@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // Configs
-import { storageKeys } from '@/config/storageKeys';
+import { storageKeys } from '@/config/storage-keys';
 
 export const httpClient = axios.create({
   // baseURL: import.meta.env.BASE_URL,

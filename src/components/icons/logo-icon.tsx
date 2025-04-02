@@ -1,8 +1,8 @@
 // Packages
 import type React from 'react';
 
-// Components
-import { useTheme } from '@/components/themes/theme-provider';
+// Hooks
+import { useTheme } from '@/hooks/use-theme';
 
 interface LogoIconProps {
   className?: string;

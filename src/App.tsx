@@ -4,11 +4,11 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 // Components
 import { Toaster } from '@/components/ui/toaster';
-import { ThemeProvider } from '@/components/themes/theme-provider';
+import { ThemeProvider } from '@/contexts/theme-provider';
 
 // Contexts
-import { LanguageProvider } from '@/contexts/languageContext';
-import { AuthProvider } from '@/contexts/authContext';
+import { LanguageProvider } from '@/contexts/language-context';
+import { AuthProvider } from '@/contexts/auth-context';
 
 // Routes
 import { Router } from '@/router/routes';
@@ -18,7 +18,7 @@ import './global.css';
 
 export const App = () => {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="casino:theme">
+    <ThemeProvider defaultTheme="dark" storageKey="casino:theme">
       <HelmetProvider>
         <LanguageProvider>
           <Helmet titleTemplate="%s | casino.app" />

@@ -29,7 +29,7 @@ export const SignIn = (): ReactElement => {
     email: zod.string().email(t('signIn.error.invalidEmail')),
     password: zod.string().min(1, t('signIn.error.requiredField')),
     tenant: zod.string().min(1, t('signIn.error.requiredField')),
-    code: zod.string({ message: t('signIn.error.requiredField') }),
+    code: zod.string().optional(),
   });
 
   type SignInForm = zod.infer<typeof signInForm>;
@@ -54,7 +54,7 @@ export const SignIn = (): ReactElement => {
 
   const onSignIn = async (data: SignInForm) => {
     try {
-      await signIn(data);
+      await signIn({ ...data, code: data?.code || '' });
 
       toast({
         title: t('signIn.signInSuccess'),
@@ -86,7 +86,7 @@ export const SignIn = (): ReactElement => {
       <Helmet title="Login" />
 
       <FormProvider {...methods}>
-        <div className="container mt-10 flex md:h-[90vh] w-full max-w-[400px] flex-col items-center justify-center md:m-auto">
+        <div className="container mt-10 flex w-full max-w-[400px] flex-col items-center justify-center md:m-auto md:h-[90vh]">
           <form
             onSubmit={handleSubmit(onSignIn)}
             className="flex flex-col justify-center gap-6"
@@ -104,9 +104,10 @@ export const SignIn = (): ReactElement => {
             <div className="flex w-full max-w-full flex-col">
               <Input
                 id="email"
-                label={t('signIn.email')}
                 type="email"
+                label={t('signIn.email')}
                 placeholder="m@example.com"
+                autoComplete="email"
                 autoFocus
                 required
                 error={errors.email?.message}
@@ -145,8 +146,14 @@ export const SignIn = (): ReactElement => {
                     maxLength={6}
                     label={t('signIn.code')}
                     error={errors.code?.message}
-                    required
                     {...field}
+                    onChange={(event) => {
+                      field.onChange(event);
+
+                      if (event.length === 6) {
+                        handleSubmit(onSignIn)();
+                      }
+                    }}
                   >
                     {Array(6)
                       .fill(null)

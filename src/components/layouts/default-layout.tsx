@@ -3,17 +3,21 @@ import { ReactElement } from 'react';
 import { Outlet } from 'react-router-dom';
 
 // Components
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/app-sidebar';
+import { Header } from '@/components/core/header';
+import { AppSidebar } from '@/components/core/app-sidebar/app-sidebar';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 
 export const DefaultLayout = (): ReactElement => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main>
-        <SidebarTrigger />
-        <Outlet />
-      </main>
+      <SidebarInset>
+        <Header />
+
+        <main className="px-4">
+          <Outlet />
+        </main>
+      </SidebarInset>
     </SidebarProvider>
   );
 };

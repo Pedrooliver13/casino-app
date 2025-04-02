@@ -3,7 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import { ReactElement } from 'react';
 
 // Pages
-import { SignIn } from '@/pages/singIn/signIn';
+import { SignIn } from '@/pages/sing-in/sign-in';
+import { Users } from '@/pages/users/users';
 import { Dashboard } from '@/pages/dashboard/dashboard';
 
 // Components
@@ -11,7 +12,7 @@ import { AuthLayout } from '@/components/layouts/auth-layout';
 import { DefaultLayout } from '@/components/layouts/default-layout';
 
 // Routes
-import { AuthGuard } from '@/router/authGuard';
+import { AuthGuard } from '@/router/auth-guard';
 
 export const Router = (): ReactElement => (
   <Routes>
@@ -23,6 +24,7 @@ export const Router = (): ReactElement => (
       }
     >
       <Route path="/" element={<Dashboard />} />
+      <Route path="/users" element={<Users />} />
     </Route>
 
     <Route element={<AuthLayout />}>
