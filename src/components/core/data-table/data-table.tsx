@@ -32,7 +32,7 @@ import { cn } from '@/libs/utils';
 
 interface DataTableProps<T> {
   id: string;
-  header: (props: { table: ITable<T> }) => ReactElement;
+  header?: (props: { table: ITable<T> }) => ReactElement;
   data: Array<T>;
   columns: ColumnDef<T>[];
   enableSortingRemoval: boolean;
@@ -66,8 +66,8 @@ export const DataTable = <T,>(props: DataTableProps<T>): ReactElement => {
   });
 
   return (
-    <div className="flex flex-col gap-2">
-      <props.header table={table} />
+    <div className="flex max-w-full flex-col gap-2">
+      {props?.header && <props.header table={table} />}
 
       <div className="rounded-lg border">
         <Table id={props?.id} className="table-fixed">

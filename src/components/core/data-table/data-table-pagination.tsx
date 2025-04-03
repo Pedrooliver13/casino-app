@@ -63,7 +63,7 @@ export const DataTablePagination = <T,>(
         </Select>
       </div>
       {/* Page number information */}
-      <div className="flex grow justify-end whitespace-nowrap text-sm text-muted-foreground">
+      <div className="hidden grow justify-end whitespace-nowrap text-sm text-muted-foreground md:flex">
         <p
           className="whitespace-nowrap text-sm text-muted-foreground"
           aria-live="polite"

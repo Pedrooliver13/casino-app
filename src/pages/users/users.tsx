@@ -18,17 +18,23 @@ export const Users = (): ReactElement => {
       <DataTable
         id="data-table-users"
         enableSortingRemoval={false}
-        header={() => {
-          return <h1>Hello World</h1>;
+        header={(props) => {
+          console.log(props);
+          return (
+            <h1>
+              Páginas selecionadas{' '}
+              {props.table.getSelectedRowModel().rows.length}
+            </h1>
+          );
         }}
         data={[
           {
             name: 'Pedro Oliveira 123',
-            email: 'pedro_oliver@hotmail.com',
+            email: 'admin@admin.com',
           },
           {
             name: 'Pedro Oliveira',
-            email: 'pedro_oliver@hotmail.com',
+            email: 'admin@admin.com',
           },
         ]}
         columns={[
@@ -53,17 +59,19 @@ export const Users = (): ReactElement => {
                 aria-label="Select row"
               />
             ),
-            size: 0,
+            size: 20,
             enableSorting: false,
             enableHiding: false,
           },
           {
-            header: 'name',
+            header: 'Name',
             accessorKey: 'name',
+            size: 200,
           },
           {
             header: 'Email',
             accessorKey: 'email',
+            size: 200,
           },
         ]}
       />
