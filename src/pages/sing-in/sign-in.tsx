@@ -26,9 +26,9 @@ export const SignIn = (): ReactElement => {
   const tenantValueByQuery = seachParams.get('tenant');
 
   const signInForm = zod.object({
-    email: zod.string().email(t('signIn.error.invalidEmail')),
-    password: zod.string().min(1, t('signIn.error.requiredField')),
-    tenant: zod.string().min(1, t('signIn.error.requiredField')),
+    email: zod.string().email(t('pages.signIn.error.invalidEmail')),
+    password: zod.string().min(1, t('pages.signIn.error.requiredField')),
+    tenant: zod.string().min(1, t('pages.signIn.error.requiredField')),
     code: zod.string().optional(),
   });
 
@@ -57,7 +57,7 @@ export const SignIn = (): ReactElement => {
       await signIn({ ...data, code: data?.code || '' });
 
       toast({
-        title: t('signIn.signInSuccess'),
+        title: t('pages.signIn.signInSuccess'),
         duration: 3000,
       });
     } catch (err) {
@@ -67,7 +67,9 @@ export const SignIn = (): ReactElement => {
         const { data } = error.response;
 
         const messages = {
-          'Email ou senha errado': t('signIn.error.invalidEmailOrPassword'),
+          'Email ou senha errado': t(
+            'pages.signIn.error.invalidEmailOrPassword',
+          ),
         };
 
         toast({
@@ -97,7 +99,7 @@ export const SignIn = (): ReactElement => {
                 <span className="sr-only">Acme Inc.</span>
               </div>
               <h1 className="text-xl font-bold">
-                {t('signIn.welcome')} casino.
+                {t('pages.signIn.welcome')} casino.
               </h1>
             </header>
 
@@ -105,7 +107,7 @@ export const SignIn = (): ReactElement => {
               <Input
                 id="email"
                 type="email"
-                label={t('signIn.email')}
+                label={t('pages.signIn.email')}
                 placeholder="m@example.com"
                 autoComplete="email"
                 autoFocus
@@ -116,7 +118,7 @@ export const SignIn = (): ReactElement => {
               <Input
                 id="password"
                 type="password"
-                label={t('signIn.password')}
+                label={t('pages.signIn.password')}
                 placeholder="********"
                 isPassword
                 autoComplete="off"
@@ -127,7 +129,7 @@ export const SignIn = (): ReactElement => {
               {!tenantValueByQuery && (
                 <Input
                   id="tenat"
-                  label={t('signIn.tenant')}
+                  label={t('pages.signIn.tenant')}
                   autoComplete="off"
                   autoCapitalize="off"
                   required
@@ -144,7 +146,7 @@ export const SignIn = (): ReactElement => {
                     id="code"
                     className="mt-1 w-full flex-1 justify-center"
                     maxLength={6}
-                    label={t('signIn.code')}
+                    label={t('pages.signIn.code')}
                     error={errors.code?.message}
                     {...field}
                     onChange={(event) => {
@@ -173,13 +175,14 @@ export const SignIn = (): ReactElement => {
                 isLoading={isSubmitting}
                 disabled={isSubmitting}
               >
-                {t('signIn.login')}
+                {t('pages.signIn.login')}
               </Button>
             </div>
             <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
-              {t('signIn.ByClickingContinueYouAgreeToOur')}{' '}
-              <a href="#">{t('signIn.termsOfService')}</a> {t('signIn.and')}{' '}
-              <a href="#">{t('signIn.privacyPolicy')}</a>.
+              {t('pages.signIn.ByClickingContinueYouAgreeToOur')}{' '}
+              <a href="#">{t('pages.signIn.termsOfService')}</a>{' '}
+              {t('pages.signIn.and')}{' '}
+              <a href="#">{t('pages.signIn.privacyPolicy')}</a>.
             </div>
           </form>
         </div>

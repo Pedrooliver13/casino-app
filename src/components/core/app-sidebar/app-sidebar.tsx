@@ -54,23 +54,31 @@ export function AppSidebar({
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>{t('appSidebar.screens')}</SidebarGroupLabel>
+          <SidebarGroupLabel>
+            {t('components.appSidebar.screens')}
+          </SidebarGroupLabel>
 
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip={t('appSidebar.dashboard')}>
+              <SidebarMenuButton
+                asChild
+                tooltip={t('components.appSidebar.dashboard')}
+              >
                 <Link to={'/'} onClick={() => setOpenMobile(false)}>
                   <LayoutDashboardIcon />
-                  <span>{t('appSidebar.dashboard')}</span>
+                  <span>{t('components.appSidebar.dashboard')}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
 
             <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip={t('appSidebar.user')}>
+              <SidebarMenuButton
+                asChild
+                tooltip={t('components.appSidebar.user')}
+              >
                 <Link to={'/users'} onClick={() => setOpenMobile(false)}>
                   <UsersRoundIcon />
-                  <span>{t('appSidebar.user')}</span>
+                  <span>{t('components.appSidebar.user')}</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

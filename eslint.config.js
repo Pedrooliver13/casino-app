@@ -47,6 +47,7 @@ export default tseslint.config(
             { path: 'class-variance-authority' },
             { path: 'sonner' },
             { path: 'recharts' },
+            { path: '@tanstack/react-table' },
           ],
           Libs: [
             { path: '@/libs/axios' },
@@ -55,7 +56,7 @@ export default tseslint.config(
           ],
           Utils: [{ path: 'utils' }],
           Routes: [{ path: 'router' }, { path: '@/routes' }],
-          i18n: [{ path: 'i18n/' }, { path: '@/i18n/componentsTranslates' }],
+          i18n: [{ path: 'i18n/' }, { path: '@/i18n/components-translates' }],
           Pages: [{ path: 'pages/' }],
           Reducers: [{ path: 'reducers' }],
           Components: [{ path: 'components' }, { path: '@/components' }],
