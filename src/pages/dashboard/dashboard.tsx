@@ -1,5 +1,6 @@
 // Packages
 import { ReactElement } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 // Components
 import { Button } from '@/components/ui/button';
@@ -15,15 +16,19 @@ export const Dashboard = (): ReactElement => {
   };
 
   return (
-    <div>
-      <Button
-        type="button"
-        variant="default"
-        size="icon"
-        onClick={handleSignOut}
-      >
-        Sair
-      </Button>
-    </div>
+    <>
+      <Helmet title={'Dashboard'} />
+
+      <div>
+        <Button
+          type="button"
+          variant="default"
+          size="icon"
+          onClick={handleSignOut}
+        >
+          Sair
+        </Button>
+      </div>
+    </>
   );
 };

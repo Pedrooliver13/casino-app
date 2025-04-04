@@ -13,7 +13,7 @@ httpClient.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem(storageKeys.accessToken);
 
   if (accessToken) {
-    config.headers.set('Authorization', `Bearer ${accessToken}`);
+    config.headers.set('Authorization', accessToken);
   }
 
   return config;

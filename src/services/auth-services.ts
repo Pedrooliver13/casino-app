@@ -1,7 +1,7 @@
 // Services
 import { httpClient } from '@/services/axios';
 
-interface ISignInDTO {
+interface ISignIn {
   email: string;
   password?: string;
   tenant?: string;
@@ -13,7 +13,7 @@ interface ISignInResponse {
 }
 
 export class AuthService {
-  static async signIn({ email, password, tenant, code }: ISignInDTO) {
+  static async signIn({ email, password, tenant, code }: ISignIn) {
     const { data } = await httpClient.post<ISignInResponse>('/admin/login', {
       email,
       password,

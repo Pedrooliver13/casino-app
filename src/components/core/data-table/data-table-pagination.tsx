@@ -35,7 +35,7 @@ export const DataTablePagination = <T,>(
   const { t } = useTranslation();
 
   return (
-    <div className="flex items-center justify-between gap-8">
+    <div className="flex w-full items-center justify-between gap-8">
       <div className="flex items-center gap-3">
         <Label htmlFor="rows-per-page" className="max-sm:sr-only">
           {t('components.dataTable.rowsPerPage')}
@@ -61,33 +61,6 @@ export const DataTablePagination = <T,>(
             ))}
           </SelectContent>
         </Select>
-      </div>
-      {/* Page number information */}
-      <div className="hidden grow justify-end whitespace-nowrap text-sm text-muted-foreground md:flex">
-        <p
-          className="whitespace-nowrap text-sm text-muted-foreground"
-          aria-live="polite"
-        >
-          <span className="text-foreground">
-            {props?.table.getState().pagination.pageIndex *
-              props?.table.getState().pagination.pageSize +
-              1}
-            -
-            {Math.min(
-              Math.max(
-                props.table.getState().pagination.pageIndex *
-                  props.table.getState().pagination.pageSize +
-                  props.table.getState().pagination.pageSize,
-                0,
-              ),
-              props.table.getRowCount(),
-            )}
-          </span>{' '}
-          of{' '}
-          <span className="text-foreground">
-            {props.table.getRowCount().toString()}
-          </span>
-        </p>
       </div>
 
       {/* Pagination buttons */}

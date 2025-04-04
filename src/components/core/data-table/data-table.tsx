@@ -7,9 +7,10 @@ import {
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
-  PaginationState,
   getPaginationRowModel,
   Table as ITable,
+  PaginationState,
+  Updater,
 } from '@tanstack/react-table';
 import {
   ChevronDown as ChevronDownIcon,
@@ -17,6 +18,7 @@ import {
 } from 'lucide-react';
 
 // Components
+import { DataTableSkeleton } from '@/components/core/data-table/data-table-skeleton';
 import { DataTablePagination } from '@/components/core/data-table/data-table-pagination';
 import {
   Table,
@@ -37,12 +39,16 @@ interface DataTableProps<T> {
   columns: ColumnDef<T>[];
   enableSortingRemoval: boolean;
   emptyText?: string;
+  isLoading?: boolean;
+  pageCount?: number;
+  pagination?: PaginationState;
+  onPaginationChange?: (updater: Updater<PaginationState>) => void;
 }
 
 export const DataTable = <T,>(props: DataTableProps<T>): ReactElement => {
   const { t } = useTranslation();
 
-  const [pagination, setPagination] = useState<PaginationState>({
+  const [paginationDefault, setPaginationDefault] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
@@ -51,26 +57,29 @@ export const DataTable = <T,>(props: DataTableProps<T>): ReactElement => {
     data: props?.data ?? [],
     columns: props?.columns ?? [],
     enableSortingRemoval: props?.enableSortingRemoval,
-    onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: props?.onPaginationChange ?? setPaginationDefault,
+    manualPagination: Boolean(props?.onPaginationChange),
+    pageCount: props?.pageCount ?? undefined,
+    state: {
+      pagination: props?.pagination ?? paginationDefault,
+    },
+    // onPaginationChange: setPagination,
     // onSortingChange: setSorting,
     // onColumnFiltersChange: setColumnFilters,
     // onColumnVisibilityChange: setColumnVisibility,
     // getFilteredRowModel: getFilteredRowModel(),
     // getFacetedUniqueValues: getFacetedUniqueValues(),
-    state: {
-      pagination,
-    },
   });
 
   return (
-    <div className="flex max-w-full flex-col gap-2">
+    <>
       {props?.header && <props.header table={table} />}
 
-      <div className="rounded-lg border">
-        <Table id={props?.id} className="table-fixed">
+      <div className="w-full overflow-auto rounded-lg border border-gray-200 shadow dark:border-gray-800">
+        <Table id={props?.id} className="overflow-auto">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:bg-transparent">
@@ -134,7 +143,9 @@ export const DataTable = <T,>(props: DataTableProps<T>): ReactElement => {
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {props?.isLoading ? (
+              <DataTableSkeleton table={table} />
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -155,7 +166,7 @@ export const DataTable = <T,>(props: DataTableProps<T>): ReactElement => {
               <TableRow>
                 <TableCell
                   colSpan={props?.columns.length}
-                  className="flex h-full w-full flex-col items-center gap-2"
+                  className="text-center"
                 >
                   <p className="text-base font-light">
                     {props?.emptyText ?? t('components.dataTable.emptyResults')}
@@ -169,6 +180,6 @@ export const DataTable = <T,>(props: DataTableProps<T>): ReactElement => {
 
       {/* Pagination buttons */}
       <DataTablePagination table={table} />
-    </div>
+    </>
   );
 };

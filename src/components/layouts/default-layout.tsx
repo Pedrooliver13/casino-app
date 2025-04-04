@@ -14,7 +14,7 @@ export const DefaultLayout = (): ReactElement => {
       <SidebarInset>
         <Header />
 
-        <main className="px-4">
+        <main className="max-w-full px-4">
           <Outlet />
         </main>
       </SidebarInset>
