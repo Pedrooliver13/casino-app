@@ -48,12 +48,18 @@ export const Users = (): ReactElement => {
                 id="search"
                 placeholder="Pesquisar"
                 removeHeight
-                removeAnimation
                 value={undefined}
                 size={'sm'}
                 suffixItem={<SearchIcon size={14} />}
                 onChange={debounce((event: ChangeEvent<HTMLInputElement>) => {
                   onChange(String(event.target.value).trim());
+
+                  if (pagination && pagination.pageIndex > 0) {
+                    setPagination({
+                      pageIndex: 0,
+                      pageSize: 10,
+                    });
+                  }
                 }, 500)}
                 {...fieldProps}
               />

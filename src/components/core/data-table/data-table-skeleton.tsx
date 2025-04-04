@@ -25,7 +25,7 @@ export const DataTableSkeleton = <T,>(
         <TableRow className="h-12" key={`${index}-row-skeleton`}>
           {Array.from({ length: columnLenght }).map(() => (
             <TableCell className="last:py-0" key={`${Math.random()}-skeleton`}>
-              <Skeleton className="h-8 w-full" />
+              <Skeleton className="h-6 w-full" />
             </TableCell>
           ))}
         </TableRow>
