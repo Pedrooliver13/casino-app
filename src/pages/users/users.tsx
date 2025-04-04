@@ -11,6 +11,8 @@ import { Input } from '@/components/ui/input';
 
 // Hooks
 import { useGetAllUsers } from './hooks/use-get-all-users';
+
+// Utils
 import { debounce } from '@/utils/common';
 
 export const Users = (): ReactElement => {
