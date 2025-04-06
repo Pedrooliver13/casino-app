@@ -18,3 +18,15 @@ httpClient.interceptors.request.use((config) => {
 
   return config;
 });
+
+httpClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if ([401, 403].includes(error.response?.status)) {
+      localStorage.removeItem(storageKeys.accessToken);
+      window.location.href = '/';
+
+      return Promise.reject(error);
+    }
+  },
+);

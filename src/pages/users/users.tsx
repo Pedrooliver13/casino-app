@@ -25,28 +25,28 @@ export const Users = (): ReactElement => {
   });
 
   const { data, isFetching } = useGetAllUsers({
-    email: watch('search'),
+    search: watch('search'),
     page: pagination.pageIndex + 1,
     limit: pagination.pageSize,
   });
 
   return (
     <>
-      <Helmet title={t('pages.users.allUsers')} />
+      <Helmet title={t('components.appSidebar.user')} />
 
       <div className="flex flex-col gap-4">
         <header>
           <h1 className="text-lg">{t('pages.users.allUsers')}</h1>
         </header>
 
-        <form className="flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <Controller
             name="search"
             control={control}
             render={({ field: { onChange, value: _value, ...fieldProps } }) => (
               <Input
                 id="search"
-                placeholder="Pesquisar"
+                placeholder={t('pages.users.search')}
                 removeHeight
                 value={undefined}
                 size={'sm'}
@@ -65,7 +65,7 @@ export const Users = (): ReactElement => {
               />
             )}
           />
-        </form>
+        </div>
 
         <DataTable
           id="data-table-users"
@@ -77,28 +77,28 @@ export const Users = (): ReactElement => {
           onPaginationChange={setPagination}
           columns={[
             {
-              header: 'Usuário',
+              header: t('pages.users.userName'),
               accessorKey: 'username',
               size: 150,
             },
             {
-              header: 'E-mail',
+              header: t('pages.users.email'),
               accessorKey: 'email',
-              size: 300,
+              size: 200,
             },
             {
-              header: 'Conta',
-              accessorKey: 'role',
-              size: 150,
-            },
-            {
-              header: 'Documento',
+              header: t('pages.users.document'),
               accessorKey: 'document',
               size: 150,
             },
             {
-              header: 'Status',
-              accessorKey: 'active',
+              header: t('pages.users.account'),
+              accessorKey: 'role',
+              size: 150,
+            },
+            {
+              header: t('pages.users.status'),
+              accessorKey: 'status',
               size: 150,
             },
           ]}

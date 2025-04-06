@@ -65,6 +65,7 @@ export default tseslint.config(
             { path: '@/libs/axios' },
             { path: '@/libs' },
             { path: '@/libs/utils' },
+            { path: '@/libs/react-query' },
           ],
           Utils: [{ path: 'utils' }],
           Routes: [{ path: 'router' }, { path: '@/routes' }],
