@@ -17,8 +17,6 @@ export const useGetAllUsers = (props: UseGetAllUsersProps) => {
 
   const isEmail = /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value ?? '');
 
-  const isEnabled = isEmail || !!value?.replace(/\D/g, '');
-
   return useQuery({
     queryKey: ['users', props.search, props.page, props.limit],
     queryFn: async () =>
@@ -28,6 +26,6 @@ export const useGetAllUsers = (props: UseGetAllUsersProps) => {
         email: isEmail ? value : undefined,
         document: value?.replace(/\D/g, ''),
       }),
-    enabled: isEnabled,
+    enabled: !!props.search,
   });
 };
