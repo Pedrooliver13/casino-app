@@ -19,13 +19,7 @@ export const useGetAllUsers = (props: UseGetAllUsersProps) => {
   const isDocument = value && value?.replace(/\D/g, '').length >= 11;
 
   return useQuery({
-    queryKey: [
-      'users',
-      props.search,
-      props.affiliation,
-      props.page,
-      props.limit,
-    ],
+    queryKey: ['users', props.page, props.limit],
     queryFn: async () =>
       await new UserService().getAllUsers({
         page: props?.page || 0,
