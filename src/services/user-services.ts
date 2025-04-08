@@ -11,6 +11,7 @@ interface UserServiceMethods {
     limit: number;
     email?: string;
     document?: string;
+    affiliation?: string;
   }) => Promise<AxiosResponse<GetAllUsersResponse>>;
 }
 
@@ -20,6 +21,7 @@ export class UserService implements UserServiceMethods {
     limit: number;
     email?: string;
     document?: string;
+    affiliation?: string;
   }): Promise<AxiosResponse<GetAllUsersResponse>> {
     const response = await httpClient.get<GetAllUsersResponse>(`/admin/user`, {
       params: {
@@ -27,6 +29,7 @@ export class UserService implements UserServiceMethods {
         limit: params?.limit,
         email: params?.email,
         document: params.document,
+        affiliation: params.affiliation,
       },
       headers: {
         'Content-Type': 'application/json',

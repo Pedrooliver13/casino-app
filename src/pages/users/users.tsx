@@ -1,31 +1,53 @@
 // Packages
-import { ChangeEvent, ReactElement, useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import { Controller, useForm } from 'react-hook-form';
 import { Search as SearchIcon } from 'lucide-react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as zod from 'zod';
 
 // Components
 import { DataTable } from '@/components/core/data-table/data-table';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Select } from '@/components/core/select';
 
 // Hooks
 import { useGetAllUsers } from './hooks/use-get-all-users';
 
-// Utils
-import { debounce } from '@/utils/common';
+// Libs
+import { cn } from '@/libs/utils';
+
+const usersSearch = zod.object({
+  search: zod.string(),
+  affiliation: zod.string(),
+});
 
 export const Users = (): ReactElement => {
   const { t } = useTranslation();
-  const { control, watch } = useForm();
+  const {
+    control,
+    watch,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm({
+    values: {
+      search: '',
+      affiliation: 'all',
+    },
+    resolver: zodResolver(usersSearch),
+  });
 
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
 
-  const { data, isFetching } = useGetAllUsers({
+  const { data, isFetching, refetch } = useGetAllUsers({
     search: watch('search'),
+    affiliation: watch('affiliation'),
     page: pagination.pageIndex + 1,
     limit: pagination.pageSize,
   });
@@ -39,38 +61,65 @@ export const Users = (): ReactElement => {
           <h1 className="text-lg">{t('pages.users.allUsers')}</h1>
         </header>
 
-        <div className="flex items-center gap-2">
+        <form
+          onSubmit={handleSubmit(() => refetch())}
+          className="flex items-center gap-2"
+        >
+          <Select
+            name="affiliation"
+            control={control}
+            options={[
+              {
+                label: t('pages.users.all'),
+                value: 'all',
+              },
+              {
+                label: t('pages.users.player'),
+                value: 'player',
+              },
+              {
+                label: t('pages.users.affiliate'),
+                value: 'affiliate',
+              },
+              {
+                label: t('pages.users.subAffiliate'),
+                value: 'sub-affiliate',
+              },
+              {
+                label: t('pages.users.demo'),
+                value: 'demo',
+              },
+            ]}
+          />
           <Controller
             name="search"
             control={control}
-            render={({ field: { onChange, value: _value, ...fieldProps } }) => (
+            render={({ field }) => (
               <Input
                 id="search"
                 placeholder={t('pages.users.search')}
                 removeHeight
-                value={undefined}
                 size={'sm'}
                 suffixItem={<SearchIcon size={14} />}
-                onChange={debounce((event: ChangeEvent<HTMLInputElement>) => {
-                  onChange(String(event.target.value).trim());
-
-                  if (pagination && pagination.pageIndex > 0) {
-                    setPagination({
-                      pageIndex: 0,
-                      pageSize: 10,
-                    });
-                  }
-                }, 500)}
-                {...fieldProps}
+                {...field}
               />
             )}
           />
-        </div>
+          <Button
+            id="search-btn"
+            type="submit"
+            size={'sm'}
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+          >
+            Buscar
+          </Button>
+        </form>
 
         <DataTable
           id="data-table-users"
           data={data?.data.docs || []}
-          enableSortingRemoval={false}
+          enableSortingRemoval
           isLoading={isFetching}
           pageCount={data?.data.totalPages || 0}
           pagination={pagination}
@@ -98,8 +147,21 @@ export const Users = (): ReactElement => {
             },
             {
               header: t('pages.users.status'),
-              accessorKey: 'status',
-              size: 150,
+              accessorKey: 'active',
+              size: 30,
+              cell: (props) => {
+                return (
+                  <Badge className={cn('flex gap-2 text-primary-foreground')}>
+                    <div
+                      data-status={props.row.getValue('active')}
+                      className="h-2 w-2 rounded-full data-[status=false]:bg-red-600 data-[status=true]:bg-green-400"
+                    />
+                    {props.row.getValue('active')
+                      ? t('pages.users.active')
+                      : t('pages.users.inactive')}
+                  </Badge>
+                );
+              },
             },
           ]}
         />

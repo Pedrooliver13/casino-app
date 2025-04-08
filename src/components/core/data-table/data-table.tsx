@@ -11,6 +11,9 @@ import {
   Table as ITable,
   PaginationState,
   Updater,
+  VisibilityState,
+  SortingState,
+  getFacetedUniqueValues,
 } from '@tanstack/react-table';
 import {
   ChevronDown as ChevronDownIcon,
@@ -42,11 +45,15 @@ interface DataTableProps<T> {
   isLoading?: boolean;
   pageCount?: number;
   pagination?: PaginationState;
+  columnVisibility?: VisibilityState;
   onPaginationChange?: (updater: Updater<PaginationState>) => void;
 }
 
 export const DataTable = <T,>(props: DataTableProps<T>): ReactElement => {
   const { t } = useTranslation();
+
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
   const [paginationDefault, setPaginationDefault] = useState({
     pageIndex: 0,
@@ -60,18 +67,19 @@ export const DataTable = <T,>(props: DataTableProps<T>): ReactElement => {
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onSortingChange: setSorting,
+    onColumnVisibilityChange: setColumnVisibility,
     onPaginationChange: props?.onPaginationChange ?? setPaginationDefault,
     manualPagination: Boolean(props?.onPaginationChange),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
     pageCount: props?.pageCount ?? undefined,
     state: {
+      sorting,
+      columnVisibility,
       pagination: props?.pagination ?? paginationDefault,
     },
-    // onPaginationChange: setPagination,
-    // onSortingChange: setSorting,
     // onColumnFiltersChange: setColumnFilters,
-    // onColumnVisibilityChange: setColumnVisibility,
     // getFilteredRowModel: getFilteredRowModel(),
-    // getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
   return (

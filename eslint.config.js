@@ -59,6 +59,7 @@ export default tseslint.config(
             { path: 'class-variance-authority' },
             { path: 'sonner' },
             { path: 'recharts' },
+            { path: 'cmdk' },
             { path: '@tanstack/react-table' },
           ],
           Libs: [
