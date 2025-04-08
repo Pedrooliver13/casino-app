@@ -35,6 +35,6 @@ export const useGetAllUsers = (props: UseGetAllUsersProps) => {
         document: isDocument ? value?.replace(/\D/g, '') : undefined,
       }),
     staleTime: 0,
-    enabled: false,
+    enabled: Boolean(props?.page && props?.page > 1),
   });
 };
