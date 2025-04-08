@@ -112,13 +112,13 @@ export const Users = (): ReactElement => {
             isLoading={isSubmitting}
             disabled={isSubmitting}
           >
-            Buscar
+            {t('pages.users.fetch')}
           </Button>
         </form>
 
         <DataTable
           id="data-table-users"
-          data={data?.data.docs || []}
+          data={data?.data?.docs || []}
           enableSortingRemoval
           isLoading={isFetching}
           pageCount={data?.data.totalPages || 0}
@@ -148,10 +148,12 @@ export const Users = (): ReactElement => {
             {
               header: t('pages.users.status'),
               accessorKey: 'active',
-              size: 30,
+              size: 2,
               cell: (props) => {
                 return (
-                  <Badge className={cn('flex gap-2 text-primary-foreground')}>
+                  <Badge
+                    className={cn('flex w-[80%] gap-2 text-primary-foreground')}
+                  >
                     <div
                       data-status={props.row.getValue('active')}
                       className="h-2 w-2 rounded-full data-[status=false]:bg-red-600 data-[status=true]:bg-green-400"

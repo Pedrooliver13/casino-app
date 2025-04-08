@@ -14,6 +14,7 @@ export const usersTranslates = {
     affiliate: 'Afiliado',
     subAffiliate: 'Subafiliado',
     demo: 'Demonstração',
+    fetch: 'Buscar',
   },
   en: {
     search: 'Search',
@@ -30,6 +31,7 @@ export const usersTranslates = {
     affiliate: 'Affiliate',
     subAffiliate: 'Sub-affiliate',
     demo: 'Demo',
+    fetch: 'Fetch',
   },
   fr: {
     search: 'Recherche',
@@ -46,5 +48,6 @@ export const usersTranslates = {
     affiliate: 'Affilié',
     subAffiliate: 'Sous-affilié',
     demo: 'Démo',
+    fetch: 'Récupérer',
   },
 };
