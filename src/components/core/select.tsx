@@ -33,8 +33,8 @@ export const Select = <T extends FieldValues = FieldValues>(
       <Controller
         control={props?.control}
         name={props.name}
-        render={({ field }) => (
-          <SelectShadcn onValueChange={field.onChange} {...field}>
+        render={({ field: { ref: _ref, ...fieldProps } }) => (
+          <SelectShadcn onValueChange={fieldProps.onChange} {...fieldProps}>
             <SelectTrigger className="w-fit whitespace-nowrap">
               <SelectValue placeholder="Select number of results" />
             </SelectTrigger>

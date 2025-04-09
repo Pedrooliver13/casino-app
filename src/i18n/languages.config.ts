@@ -18,6 +18,7 @@ const resources = {
         spanish: 'Espanhol',
         french: 'Francês',
       },
+      actions: 'Ações',
       genericRequestError:
         'Ocorreu um erro ao processar a requisição. Por favor, tente novamente mais tarde.',
       changeTenant: 'Alterar tenant',

@@ -3,9 +3,13 @@ import { ReactElement, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet-async';
 import { Controller, useForm } from 'react-hook-form';
-import { Search as SearchIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as zod from 'zod';
+import {
+  ExternalLink as ExternalLinkIcon,
+  Search as SearchIcon,
+} from 'lucide-react';
 
 // Components
 import { DataTable } from '@/components/core/data-table/data-table';
@@ -26,6 +30,7 @@ const usersSearch = zod.object({
 });
 
 export const Users = (): ReactElement => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const {
     control,
@@ -51,6 +56,14 @@ export const Users = (): ReactElement => {
     page: pagination.pageIndex + 1,
     limit: pagination.pageSize,
   });
+
+  const handleViewUser = (id: string) => {
+    if (!id) {
+      return;
+    }
+
+    navigate(`/users/${id}`);
+  };
 
   return (
     <>
@@ -100,6 +113,7 @@ export const Users = (): ReactElement => {
                 placeholder={t('pages.users.search')}
                 removeHeight
                 size={'sm'}
+                autoFocus
                 suffixItem={<SearchIcon size={14} />}
                 {...field}
               />
@@ -128,40 +142,55 @@ export const Users = (): ReactElement => {
             {
               header: t('pages.users.userName'),
               accessorKey: 'username',
-              size: 150,
             },
             {
               header: t('pages.users.email'),
               accessorKey: 'email',
-              size: 200,
+              size: 300,
             },
             {
               header: t('pages.users.document'),
               accessorKey: 'document',
-              size: 150,
             },
             {
               header: t('pages.users.account'),
               accessorKey: 'role',
-              size: 150,
             },
             {
               header: t('pages.users.status'),
               accessorKey: 'active',
-              size: 2,
               cell: (props) => {
                 return (
                   <Badge
-                    className={cn('flex w-[80%] gap-2 text-primary-foreground')}
+                    className={cn(
+                      'flex w-[80px] gap-2 text-primary-foreground',
+                    )}
                   >
                     <div
                       data-status={props.row.getValue('active')}
-                      className="h-2 w-2 rounded-full data-[status=false]:bg-red-600 data-[status=true]:bg-green-400"
+                      className="h-2 w-2 max-w-[10px] rounded-full data-[status=false]:bg-red-600 data-[status=true]:bg-green-400"
                     />
                     {props.row.getValue('active')
                       ? t('pages.users.active')
                       : t('pages.users.inactive')}
                   </Badge>
+                );
+              },
+            },
+            {
+              header: t('pages.users.actions'),
+              accessorKey: 'id',
+              cell: (props) => {
+                return (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleViewUser(props.getValue() as string)}
+                  >
+                    {t('pages.users.view')}
+                    <ExternalLinkIcon />
+                  </Button>
                 );
               },
             },

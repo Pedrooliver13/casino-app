@@ -28,7 +28,7 @@ export const useGetAllUsers = (props: UseGetAllUsersProps) => {
         email: !isDocument ? value : undefined,
         document: isDocument ? value?.replace(/\D/g, '') : undefined,
       }),
-    staleTime: 0,
-    enabled: Boolean(props?.page && props?.page > 1),
+    staleTime: 1000 * 60 * 5,
+    // enabled: Boolean(props?.page && props?.page > 1),
   });
 };
