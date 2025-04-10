@@ -40,7 +40,7 @@ interface DataTableProps<T> {
   header?: (props: { table: ITable<T> }) => ReactElement;
   data: Array<T>;
   columns: ColumnDef<T>[];
-  enableSortingRemoval: boolean;
+  enableSortingRemoval?: boolean;
   emptyText?: string;
   isLoading?: boolean;
   pageCount?: number;

@@ -14,7 +14,7 @@ export const useGetUserOperationById = (
   return useQuery({
     queryKey: ['userOperationId', props?.id],
     queryFn: async () =>
-      await new UserService().getUserOperation({
+      await new UserService().getUserOperationById({
         id: props?.id || '',
       }),
     staleTime: 1000 * 60 * 5,

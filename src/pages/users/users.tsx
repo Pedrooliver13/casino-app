@@ -19,7 +19,7 @@ import { Badge } from '@/components/ui/badge';
 import { Select } from '@/components/core/select';
 
 // Hooks
-import { useGetAllUsers } from './hooks/use-get-all-users';
+import { useGetAllUsers } from '../../hooks/users/use-get-all-users';
 
 // Libs
 import { cn } from '@/libs/utils';

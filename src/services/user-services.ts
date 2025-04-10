@@ -6,6 +6,7 @@ import { httpClient } from './axios';
 import {
   GetAllUsersResponse,
   GetUserByIdResponse,
+  GetUserDepositByIdResponse,
   GetUserOperationsByIdResponse,
 } from '@/models/user.model';
 
@@ -22,9 +23,15 @@ interface UserServiceMethods {
     id: string;
   }) => Promise<AxiosResponse<GetUserByIdResponse>>;
 
-  getUserOperation: (params: {
+  getUserOperationById: (params: {
     id: string;
   }) => Promise<AxiosResponse<GetUserOperationsByIdResponse>>;
+
+  getUserDepositById: (params: {
+    id: string;
+    page: number;
+    limit: number;
+  }) => Promise<AxiosResponse<GetUserDepositByIdResponse>>;
 }
 
 export class UserService implements UserServiceMethods {
@@ -68,12 +75,34 @@ export class UserService implements UserServiceMethods {
     return response;
   }
 
-  async getUserOperation(params: {
+  async getUserOperationById(params: {
     id: string;
   }): Promise<AxiosResponse<GetUserOperationsByIdResponse>> {
     const response = await httpClient.get<GetUserOperationsByIdResponse>(
       `/admin/user/${params?.id}/operations`,
       {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'pt-BR',
+        },
+      },
+    );
+
+    return response;
+  }
+
+  async getUserDepositById(params: {
+    id: string;
+    page: number;
+    limit: number;
+  }): Promise<AxiosResponse<GetUserDepositByIdResponse>> {
+    const response = await httpClient.get<GetUserDepositByIdResponse>(
+      `https://in.casino-service.io/api/admin/deposit/user/${params.id}`,
+      {
+        params: {
+          page: params.page,
+          limit: params.limit,
+        },
         headers: {
           'Content-Type': 'application/json',
           'Accept-Language': 'pt-BR',

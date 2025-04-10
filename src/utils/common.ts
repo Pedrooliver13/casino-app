@@ -17,3 +17,14 @@ export const priceFormatter = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
   currency: 'BRL',
 });
+
+export const dateFormatter = (
+  date: string,
+  locale = 'pt-BR',
+): string | void => {
+  if (!date) {
+    return;
+  }
+
+  return new Date(date).toLocaleDateString(locale);
+};

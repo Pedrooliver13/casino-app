@@ -85,6 +85,48 @@ export interface UserOperation {
   };
 }
 
+export interface UserDeposit {
+  _id: string;
+  userId: string;
+  tenant: string;
+  paid: boolean;
+  unprocessed: boolean;
+  platform: string;
+  fee: number;
+  feeMultiplier: number;
+  feeType: string;
+  currency: string;
+  amount: number;
+  isFTD: boolean;
+  method: string;
+  createdAt: string;
+  updatedAt: string;
+  externalId: string;
+  payload: {
+    amount: number;
+    customer: {
+      name: string;
+      document: string;
+    };
+    currency: {
+      _id: string;
+      name: string;
+      type: string;
+      __v: number;
+      symbol: string;
+    };
+  };
+  response: {
+    message: string;
+    data: {
+      status: string;
+      code: string;
+      id: string;
+      customerId: string;
+    };
+  };
+}
+
 export interface GetAllUsersResponse {
   docs: Array<User>;
   totalDocs: number;
@@ -101,3 +143,14 @@ export interface GetAllUsersResponse {
 export interface GetUserByIdResponse extends User {}
 
 export interface GetUserOperationsByIdResponse extends UserOperation {}
+
+export interface GetUserDepositByIdResponse {
+  currentPage: number;
+  totalPages: number;
+  deposits: Array<UserDeposit>;
+  totalSum: {
+    count: number;
+    totalAmount: number;
+    _id: string;
+  };
+}

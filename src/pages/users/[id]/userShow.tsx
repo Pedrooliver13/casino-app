@@ -7,7 +7,6 @@ import {
   Calendar as CalendarIcon,
   ChartSpline,
   Cog as CogIcon,
-  Dices as DicesIcon,
   Gift as GiftIcon,
   IdCard as IdCardIcon,
   Key as KeyIcon,
@@ -21,13 +20,22 @@ import { Box } from '@/components/core/box';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { DepositTab } from '@/components/shared/users/deposit-tab';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 // Hooks
-import { useGetUserOperationById } from '../hooks/use-get-user-operations-by-id';
+import { useGetUserOperationById } from '../../../hooks/users/use-get-user-operations-by-id';
 
 // Utils
 import { priceFormatter } from '@/utils/common';
+
+const tabs = [
+  {
+    id: 'deposit-tab',
+    label: 'deposit',
+    component: DepositTab,
+  },
+];
 
 export const UserShow = (): ReactElement => {
   const { t } = useTranslation();
@@ -145,11 +153,12 @@ export const UserShow = (): ReactElement => {
         </Card>
       </section>
 
-      <Separator className="my-4" />
-
       <section className="flex flex-col justify-between gap-4 md:flex-row">
-        <Card className="flex max-w-full flex-1 flex-col gap-2 p-4">
-          <CardHeader className="flex flex-row items-center gap-2 p-0">
+        <Card
+          data-positive={Boolean(data?.data?.balance)}
+          className="flex max-w-full flex-1 flex-col gap-2 p-4 data-[positive=false]:bg-red-600 data-[positive=true]:bg-green-600"
+        >
+          <CardHeader className="flex flex-row items-center gap-2 p-0 text-white">
             <BadgeDollarSignIcon size={18} />
             {t('pages.users.totalMoney')}:
           </CardHeader>{' '}
@@ -157,7 +166,7 @@ export const UserShow = (): ReactElement => {
             <Box
               as="div"
               loading={isFetching}
-              className="w-full text-2xl text-foreground"
+              className="w-full text-2xl text-white"
             >
               {priceFormatter.format(data?.data?.balance || 0)}
             </Box>
@@ -197,87 +206,26 @@ export const UserShow = (): ReactElement => {
         </Card>
       </section>
 
-      <section className="flex flex-col justify-between gap-4 md:flex-row">
-        <Card className="flex flex-1 flex-col gap-2 p-4">
-          <CardHeader className="flex flex-row items-center gap-2 p-0">
-            <DicesIcon size={18} />
-            {t('pages.users.bets')}:
-          </CardHeader>{' '}
-          <CardContent className="p-0">
-            <ul className="flex w-full flex-col gap-2">
-              <li className="flex w-full items-center justify-center gap-2 text-base">
-                {t('pages.users.totalBet')}:
-                <Box loading={isFetching} className="flex-1 text-foreground">
-                  {priceFormatter.format(data?.data?.balance || 0)}
-                </Box>
-              </li>
-              <li className="flex w-full items-center justify-center gap-2 text-base">
-                {t('pages.users.totalWon')}:
-                <Box loading={isFetching} className="flex-1 text-foreground">
-                  {priceFormatter.format(data?.data?.balance || 0)}
-                </Box>
-              </li>
-              <li className="flex w-full items-center justify-center gap-2 text-base">
-                {t('pages.users.ggr')}:
-                <Box loading={isFetching} className="flex-1 text-foreground">
-                  {priceFormatter.format(data?.data?.balance || 0)}
-                </Box>
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
-
-        <Card className="flex max-w-full flex-1 flex-col gap-2 p-4">
-          <CardHeader className="flex flex-row items-center gap-2 p-0">
-            <DicesIcon size={18} />
-            {t('pages.users.balanceChanges')}:
-          </CardHeader>{' '}
-          <CardContent className="p-0">
-            <ul className="flex w-full flex-col gap-2">
-              <li className="flex w-full items-center justify-center gap-2 text-base">
-                {t('pages.users.balanceAdded')}:
-                <Box loading={isFetching} className="flex-1 text-foreground">
-                  {priceFormatter.format(data?.data?.balance || 0)}
-                </Box>
-              </li>
-              <li className="flex w-full items-center justify-center gap-2 text-base">
-                {t('pages.users.balanceSubtracted')}:
-                <Box loading={isFetching} className="flex-1 text-foreground">
-                  {priceFormatter.format(data?.data?.balance || 0)}
-                </Box>
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
-      </section>
-
       <Separator className="my-4" />
 
-      <Tabs defaultValue="tab-1">
+      <Tabs defaultValue="deposit-tab">
         <TabsList className="gap-1 bg-transparent">
-          <TabsTrigger
-            value="tab-1"
-            className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-none"
-          >
-            Depositos
-          </TabsTrigger>
-          <TabsTrigger
-            value="tab-2"
-            className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-none"
-          >
-            Saques
-          </TabsTrigger>
+          {tabs.map((tab) => (
+            <TabsTrigger
+              key={`${tab.id}-trigger`}
+              value={tab.id}
+              className="rounded-full data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-none"
+            >
+              {t(`pages.users.${tab?.label}`)}
+            </TabsTrigger>
+          ))}
         </TabsList>
-        <TabsContent value="tab-1">
-          <p className="p-4 text-center text-xs text-muted-foreground">
-            Content for Tab 1
-          </p>
-        </TabsContent>
-        <TabsContent value="tab-2">
-          <p className="p-4 text-center text-xs text-muted-foreground">
-            Content for Tab 2
-          </p>
-        </TabsContent>
+
+        {tabs.map((tab, index) => (
+          <TabsContent key={`${tab.id}+${index}-content`} value={tab.id}>
+            <tab.component />
+          </TabsContent>
+        ))}
       </Tabs>
     </div>
   );
